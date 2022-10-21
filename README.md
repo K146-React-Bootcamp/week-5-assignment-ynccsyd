@@ -14,7 +14,7 @@ proje repo'su açıldıktan sonra eklenmesi gerekenler:
 npm install
 npm start
 ```
-- Ayrıca render işlemlerini görebilmek için [react dev tool](https://github.com/facebook/react/tree/main/packages/react-devtools#the-react-tab-doesnt-show-up)kurabilirsiniz.
+- Ayrıca render işlemlerini görebilmek için [react dev tool](https://github.com/facebook/react/tree/main/packages/react-devtools#the-react-tab-doesnt-show-up) kurabilirsiniz.
 
 ### ` Bu Projede`;
 - 3 tane ürünümüz var ürünleri state de tutuyoruz
