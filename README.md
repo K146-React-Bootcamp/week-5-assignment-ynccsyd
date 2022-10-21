@@ -17,8 +17,8 @@ npm start
 - Ayrıca render işlemlerini görebilmek için [react dev tool](https://github.com/facebook/react/tree/main/packages/react-devtools#the-react-tab-doesnt-show-up) kurabilirsiniz.
 
 ### ` Bu Projede`;
-- 3 tane ürünümüz var ürünleri state de tutuyoruz
-- Ürünleri render eden bir fonksiyonumuz var(products ve addtocart ı proplardan alıp ekrana yazdıyor)
+- 3 tane ürünümüz var ürünleri state de tutuyoruz.
+- Ürünleri render eden bir fonksiyonumuz var(products ve addtocart ı proplardan alıp ekrana yazdırıyor).
 - addToCart fonk varsa sepet componenti çalıştırıyor.
 
 - useCallback i nerede kullanacağımıza karar vermek için programı çalıştıralım ve react dev tool Profile özelliğinden hangi fonksiyonlar kaç defa render edilmiş bakıp gereksiz render işlemleri inceleyelim
