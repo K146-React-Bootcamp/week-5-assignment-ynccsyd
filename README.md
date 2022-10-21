@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# `WEEK-5 React Using useCallback, React.memo`
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+-In this project you have to know:
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" title="React" alt="React" width="40" height="40"/>&nbsp; <img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" title="Git" **alt="Git" width="40" height="40"/>
+  
+</div>
+-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
-## Available Scripts
+##  ` Projeyi nasıl çalıştırabilirim?`
 
-In the project directory, you can run:
+proje repo'su açıldıktan sonra eklenmesi gerekenler:
+```
+npm install
+npm start
+```
+- Ayrıca render işlemlerini görebilmek için [react dev tool](https://github.com/facebook/react/tree/main/packages/react-devtools#the-react-tab-doesnt-show-up)kurabilirsiniz.
 
-### `npm start`
+### ` Bu Projede`;
+- 3 tane ürünümüz var ürünleri state de tutuyoruz
+- Ürünleri render eden bir fonksiyonumuz var(products ve addtocart ı proplardan alıp ekrana yazdıyor)
+- addToCart fonk varsa sepet componenti çalıştırıyor.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- useCallback i nerede kullanacağımıza karar vermek için programı çalıştıralım ve react dev tool Profile özelliğinden hangi fonksiyonlar kaç defa render edilmiş bakıp gereksiz render işlemleri inceleyelim
+- Bu aşamada hangi component hangi aşamada neden yeniden render edildiğini görebiliriz.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- ``` bir fonksiyonu aşağıdaki şekilde çalıştırırsak```
+```
+const addToCart = (product) => {
+    setCart((cart) => [...cart, product]);
+  };
+  ```
+- her işlemde state değiştiği için tekrardan durumlar render edilir.
+- her bir render işleminde yeniden oluşturulur ve memory deki yeri değişir. yeri değişince de react bu fonksiyonun değiştiğini zanneder.
 
-### `npm test`
+----
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bu haliyle componentlerden addToCart kaç defa render edildiğine bakalım. Sepete 5 defa ürün seçelim
 
-### `npm run build`
+[Video_2022_10_21-6.webm](https://user-images.githubusercontent.com/109158340/197275887-7bda9382-a316-4533-a9a2-2e014003d731.webm)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Burada consolda 5 kere render edildiğini görebiliriz
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![image](https://user-images.githubusercontent.com/109158340/197276661-403d10cf-4efa-4545-a14d-872d7e09bb26.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+----
 
-### `npm run eject`
+- Bu durumu nasıl engelleyebiliriz? yani yeniden render edilmesini nasıl engelleriz. yani sepete ürün eklemeye devam ettikçe tekrar tekrar render edilmeye devam eder.
+- eğer addToCart, emptyCart fonksiyonlarının değişmeyeceğini söylersek yani useCallback kullanırsak react bunu hatırlar ve useEffect de olduğu gibi dependency array oluştururuz ancak burada boş bir array oluştururuz.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Her durumda parent render edildiğinde parent child da render edilir bunu engellemek için ise Product ve Products içinde proplar değişmediği sürece değişmesini istemediğmiz  için de React.memo kullanıyoruz. yani proplar değişmediği sürece hafızaya alındı.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+ const addToCart = useCallback((product) => {
+    setCart((cart) => [...cart, product]);
+  }, [] )
+  console.log("<addToCart> render edildi");;
+const Product =React.memo( ({ name, price, addToCart }) => {
+  return (
+    <div className="product">
+      <div>
+        <h2>{name}</h2>
+        <h3>{price.toLocaleString()} €</h3>
+      </div>
+      
+      <div>
+        {addToCart && (
+          <button onClick={() => addToCart({ name, price })}>
+            Add to cart
+          </button>
+        )}
+      </div>
+    </div>
+  );
+});
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+----
 
-## Learn More
+* useCallback ve memo kullandıktan sonra;
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Video_2022_10_21-10.webm](https://user-images.githubusercontent.com/109158340/197275046-65a2ed7e-6c95-426b-b5bd-606714427cb5.webm)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- consolda bir kere çaşıltırıldığı görülüyor:)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
