@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from "react";
 import "./App.css";
 
-
+//Firts Run This Part
+//at first run the project without using "useCallback and memo"
+//and try and examine how many times components will be render:)
 
 const vegetables = [
   { name: "Tomatoes", price: 2 },
@@ -15,10 +17,12 @@ const App = () => {
 
   const addToCart = (product) => {
     setCart((cart) => [...cart, product]);
+    console.log("<addToCart> render edildi");
   };
 
   const emptyCart =() => {
-    setCart([]);
+    setCart([])
+    console.log("<emptyCart> render edildi")
   };
 
   return (
@@ -41,8 +45,11 @@ const Products =({ products, addToCart }) => {
       </div>
     </>
   );
+  
 };
 
+
+//to remove the products
 const Cart = ({ cart, emptyCart }) => {
   return (
     <>
@@ -81,8 +88,8 @@ export default App;
 
 
 
-
-
+/*This is the second part:
+with adding  useCallback and memo to the cart and  product components */
 
 
 // const vegetables = [
@@ -97,7 +104,8 @@ export default App;
 
 //   const addToCart = useCallback((product) => {
 //     setCart((cart) => [...cart, product]);
-//   }, []);
+//   }, [] )
+//   console.log("<addToCart> render edildi");;
 
 //   const emptyCart =useCallback( () => {
 //     setCart([]);
@@ -111,6 +119,8 @@ export default App;
 //     </div>
 //   );
 // };
+
+// ////// adding React.memo
 
 // const Products =React.memo( ({ products, addToCart }) => {
 //   return (
@@ -139,7 +149,7 @@ export default App;
 //     </>
 //   );
 // };
-
+// // adding React.memo
 // const Product =React.memo( ({ name, price, addToCart }) => {
 //   return (
 //     <div className="product">
