@@ -19,9 +19,9 @@ npm start
 ### ` Bu Projede`;
 - 3 tane ürünümüz var ürünleri state de tutuyoruz.
 - Ürünleri render eden bir fonksiyonumuz var(products ve addtocart ı proplardan alıp ekrana yazdırıyor).
-- addToCart fonk varsa sepet componenti çalıştırıyor.
+- addToCart fonksiyonu varsa sepet componenti çalıştırıyor.
 
-- useCallback i nerede kullanacağımıza karar vermek için programı çalıştıralım ve react dev tool Profile özelliğinden hangi fonksiyonlar kaç defa render edilmiş bakıp gereksiz render işlemleri inceleyelim
+- useCallback'i nerede kullanacağımıza karar vermek için programı çalıştıralım ve react dev tool Profile özelliğinden hangi fonksiyonlar kaç defa render edilmiş bakıp gereksiz render işlemleri inceleyelim
 - Bu aşamada hangi component hangi aşamada neden yeniden render edildiğini görebiliriz.
 
 - ``` bir fonksiyonu aşağıdaki şekilde çalıştırırsak```
@@ -30,12 +30,12 @@ const addToCart = (product) => {
     setCart((cart) => [...cart, product]);
   };
   ```
-- her işlemde state değiştiği için tekrardan durumlar render edilir.
-- her bir render işleminde yeniden oluşturulur ve memory deki yeri değişir. yeri değişince de react bu fonksiyonun değiştiğini zanneder.
+- Her işlemde state değiştiği için tekrardan durumlar render edilir.
+- Her bir render işleminde yeniden oluşturulur ve memory deki yeri değişir. yeri değişince de react bu fonksiyonun değiştiğini zanneder.
 
 ----
 
-bu haliyle componentlerden addToCart kaç defa render edildiğine bakalım. Sepete 5 defa ürün seçelim
+Bu haliyle componentlerden addToCart kaç defa render edildiğine bakalım. Sepete 5 defa ürün seçelim
 
 [Video_2022_10_21-6.webm](https://user-images.githubusercontent.com/109158340/197275887-7bda9382-a316-4533-a9a2-2e014003d731.webm)
 
@@ -46,7 +46,7 @@ bu haliyle componentlerden addToCart kaç defa render edildiğine bakalım. Sepe
 ----
 
 - Bu durumu nasıl engelleyebiliriz? yani yeniden render edilmesini nasıl engelleriz. yani sepete ürün eklemeye devam ettikçe tekrar tekrar render edilmeye devam eder.
-- eğer addToCart, emptyCart fonksiyonlarının değişmeyeceğini söylersek yani useCallback kullanırsak react bunu hatırlar ve useEffect de olduğu gibi dependency array oluştururuz ancak burada boş bir array oluştururuz.
+- Eğer addToCart, emptyCart fonksiyonlarının değişmeyeceğini söylersek yani useCallback kullanırsak react bunu hatırlar ve useEffect de olduğu gibi dependency array oluştururuz ancak burada boş bir array oluştururuz.
 
 - Her durumda parent render edildiğinde parent child da render edilir bunu engellemek için ise Product ve Products içinde proplar değişmediği sürece değişmesini istemediğmiz  için de React.memo kullanıyoruz. yani proplar değişmediği sürece hafızaya alındı.
 
